@@ -260,6 +260,38 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
                                       ? Colors.white
                                       : const Color(0xFF3E6B4F),
                                   fontWeight: FontWeight.w600)))),
+                          Padding(
+                          padding: EdgeInsets.fromLTRB(
+                            wide ? 48 : 18, 22, wide ? 48 : 18, 0),
+                          child: _benefitStrip(wide),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(
+                              wide ? 48 : 18, 30, wide ? 48 : 18, 14),
+                            child: const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text('Shop by concern',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w800,
+                                  color: Color(0xFF21392B))))),
+                          SizedBox(
+                          height: 116,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            padding: EdgeInsets.symmetric(horizontal: wide ? 48 : 18),
+                            children: const [
+                            _ConcernTile('Brightening', Icons.wb_sunny_outlined,
+                              Color(0xFFE9B949)),
+                            _ConcernTile('Hydrating', Icons.water_drop_outlined,
+                              Color(0xFF78A9C9)),
+                            _ConcernTile('Clarifying', Icons.spa_outlined,
+                              Color(0xFF709B72)),
+                            _ConcernTile('Daily care', Icons.favorite_border,
+                              Color(0xFFD98282)),
+                            ],
+                          ),
+                          ),
                   Padding(
                       padding: EdgeInsets.fromLTRB(
                           wide ? 48 : 18, 30, wide ? 48 : 18, 16),
@@ -449,6 +481,51 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
             ],
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _benefitStrip(bool wide) {
+    final benefits = [
+      (Icons.eco_outlined, 'Plant-based', 'Thoughtfully sourced'),
+      (Icons.handshake_outlined, 'Handmade', 'Small-batch care'),
+      (Icons.local_shipping_outlined, 'Easy delivery', 'Across India'),
+    ];
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFE8EFE8),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: benefits
+            .map((benefit) => Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(benefit.$1, color: const Color(0xFF3E6B4F), size: 24),
+                      if (wide) ...[
+                        const SizedBox(width: 8),
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(benefit.$2,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      color: Color(0xFF21392B))),
+                              Text(benefit.$3,
+                                  style: const TextStyle(
+                                      fontSize: 11, color: Colors.black54)),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ))
+            .toList(),
       ),
     );
   }
@@ -755,8 +832,42 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
                 ]));
   }
 
-  void _showSearch() =>
-      _showMessage('Search is ready to connect to the product API.');
+  void _showSearch() {
+    final controller = TextEditingController(text: _searchQuery);
+    showDialog<void>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Find your ritual'),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          onSubmitted: (_) {
+            setState(() {
+              _searchQuery = controller.text.trim();
+              _selectedTab = 1;
+            });
+            Navigator.pop(context);
+          },
+          decoration: const InputDecoration(
+              prefixIcon: Icon(Icons.search), hintText: 'Soap, mask, pickle...'),
+        ),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel')),
+          FilledButton(
+              onPressed: () {
+                setState(() {
+                  _searchQuery = controller.text.trim();
+                  _selectedTab = 1;
+                });
+                Navigator.pop(context);
+              },
+              child: const Text('Search')),
+        ],
+      ),
+    );
+  }
   void _showStory() => _showMessage(
       'Satpara Naturals makes small-batch, handmade skincare in Maharashtra.');
   void _showContact() =>
@@ -775,6 +886,44 @@ class _DemoProduct {
   final String slug;
   const _DemoProduct(this.name, this.subtitle, this.price, this.mrp, this.image,
       this.category, this.slug);
+}
+
+class _ConcernTile extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final Color color;
+
+  const _ConcernTile(this.title, this.icon, this.color);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 148,
+      margin: const EdgeInsets.only(right: 12),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: .18),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: color.withValues(alpha: .35)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(icon, color: const Color(0xFF21392B), size: 28),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                  child: Text(title,
+                      style: const TextStyle(fontWeight: FontWeight.w800))),
+              const Icon(Icons.arrow_forward, size: 16),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _DemoAuthDialog extends StatelessWidget {

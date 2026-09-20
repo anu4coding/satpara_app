@@ -4,8 +4,7 @@ import '../providers/auth_provider.dart';
 import '../providers/cart_provider.dart';
 import '../utils/theme.dart';
 import '../utils/constants.dart';
-import 'home_screen.dart';
-import 'login_screen.dart';
+import 'demo_storefront_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -25,12 +24,9 @@ class _SplashScreenState extends State<SplashScreen> {
     final auth = context.read<AuthProvider>();
     if (auth.isLoggedIn) {
       context.read<CartProvider>().bindUser(auth.firebaseUser!.uid);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-    } else {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => const LoginScreen()));
     }
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (_) => const DemoStorefrontScreen()));
   }
 
   @override
