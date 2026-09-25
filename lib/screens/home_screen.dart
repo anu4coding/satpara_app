@@ -5,8 +5,8 @@ import '../providers/cart_provider.dart';
 import '../domain/models/product_model.dart';
 import '../widgets/product_card.dart';
 import '../widgets/category_card.dart';
+import '../widgets/brand_logo.dart';
 import '../utils/theme.dart';
-import '../utils/constants.dart';
 import 'category_screen.dart';
 import 'cart_screen.dart';
 import 'profile_screen.dart';
@@ -21,26 +21,36 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppConstants.appName),
+        title: const BrandTitle(
+          textColor: Colors.white,
+          logoSize: 34,
+          fontSize: 17,
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.person_outline),
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfileScreen())),
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (_) => const ProfileScreen())),
           ),
           Stack(
             alignment: Alignment.center,
             children: [
               IconButton(
                 icon: const Icon(Icons.shopping_bag_outlined),
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CartScreen())),
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const CartScreen())),
               ),
               if (cartCount > 0)
                 Positioned(
-                  top: 8, right: 8,
+                  top: 8,
+                  right: 8,
                   child: Container(
                     padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(color: AppColors.accent, shape: BoxShape.circle),
-                    child: Text('$cartCount', style: const TextStyle(color: Colors.white, fontSize: 10)),
+                    decoration: const BoxDecoration(
+                        color: AppColors.accent, shape: BoxShape.circle),
+                    child: Text('$cartCount',
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 10)),
                   ),
                 ),
             ],
@@ -67,13 +77,19 @@ class HomeScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Give Your Skin the Care It Deserves',
-                            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold)),
                         SizedBox(height: 6),
                         Text('Natural & Handmade Soaps, Face Masks & More',
-                            style: TextStyle(color: Colors.white70, fontSize: 13)),
+                            style:
+                                TextStyle(color: Colors.white70, fontSize: 13)),
                         SizedBox(height: 10),
                         Text('Use code FIRST10 for 10% off',
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600)),
                       ],
                     ),
                   ),
@@ -82,7 +98,9 @@ class HomeScreen extends StatelessWidget {
                   if (productProvider.categories.isNotEmpty) ...[
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Text('Shop by Category', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      child: Text('Shop by Category',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
                     ),
                     const SizedBox(height: 12),
                     SizedBox(
@@ -99,7 +117,8 @@ class HomeScreen extends StatelessWidget {
                             onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => CategoryScreen(categoryId: cat.id, categoryName: cat.name),
+                                builder: (_) => CategoryScreen(
+                                    categoryId: cat.id, categoryName: cat.name),
                               ),
                             ),
                           );
@@ -112,7 +131,9 @@ class HomeScreen extends StatelessWidget {
                   // Bestsellers
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Text('Most Loved Products', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    child: Text('Most Loved Products',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
                   ),
                   const SizedBox(height: 12),
                   StreamBuilder<List<ProductModel>>(
@@ -127,17 +148,23 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Text('New Arrivals', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    child: Text('New Arrivals',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
                   ),
                   const SizedBox(height: 12),
                   _ProductGrid(
-                    products: productProvider.allProducts.where((p) => p.isNewArrival).toList(),
+                    products: productProvider.allProducts
+                        .where((p) => p.isNewArrival)
+                        .toList(),
                   ),
 
                   const SizedBox(height: 20),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Text('All Products', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    child: Text('All Products',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
                   ),
                   const SizedBox(height: 12),
                   _ProductGrid(products: productProvider.allProducts),
@@ -157,7 +184,8 @@ class _ProductGrid extends StatelessWidget {
     if (products.isEmpty) {
       return const Padding(
         padding: EdgeInsets.all(16),
-        child: Text('No products yet.', style: TextStyle(color: AppColors.textMuted)),
+        child: Text('No products yet.',
+            style: TextStyle(color: AppColors.textMuted)),
       );
     }
     return GridView.builder(

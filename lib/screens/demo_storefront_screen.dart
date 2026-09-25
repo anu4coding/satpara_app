@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../backend/payment_api.dart';
+import '../widgets/brand_logo.dart';
 
 class DemoStorefrontScreen extends StatefulWidget {
   const DemoStorefrontScreen({super.key});
@@ -17,7 +18,7 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
         'Nourishing and gentle',
         75,
         80,
-        'https://qpeimg.b-cdn.net/img_6318_result30260_1773600736171958.png?format=webp',
+        'https://qpeimg.b-cdn.net/img_6366_result30260_1773342385985202.png?format=webp',
         'Soap',
         'goat-milk-soap/227013'),
     _DemoProduct(
@@ -25,7 +26,7 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
         'Turmeric, sandalwood and saffron',
         80,
         100,
-        'https://qpeimg.b-cdn.net/img_6323_result30260_1773600735107011.png?format=webp',
+        'https://qpeimg.b-cdn.net/img_6379_result30260_1773599763103844.png?format=webp',
         'Soap',
         'haldi-chandan-kesar-soap/227113'),
     _DemoProduct(
@@ -33,7 +34,7 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
         'Pack of 4 soaps, total 400 grams',
         250,
         260,
-        'https://qpeimg.b-cdn.net/img_6366_result30260_1773342385985202.png?format=webp',
+        'https://qpeimg.b-cdn.net/img_6342_result30260_1775204118100052.png?format=webp',
         'Soap',
         'neem-soap-combo-pack-of-4-soaps-total-400-grams/227640'),
     _DemoProduct(
@@ -41,7 +42,7 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
         'Purifying botanical care',
         65,
         99,
-        'https://qpeimg.b-cdn.net/img_6368_result30260_1773342409387602.png?format=webp',
+        'https://qpeimg.b-cdn.net/img_6342_result30260_1773599912167215.png?format=webp',
         'Soap',
         'neem-tulsi-aloe-vera-soap/227114'),
     _DemoProduct(
@@ -57,7 +58,7 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
         'Brightening botanical blend',
         100,
         140,
-        'https://qpeimg.b-cdn.net/img_6298_result30260_1773340157128384.png?format=webp',
+        'https://qpeimg.b-cdn.net/img_6318_result30260_1773600736171958.png?format=webp',
         'Soap',
         'rice-mulethi-olive-oil-soap/227116'),
     _DemoProduct(
@@ -73,7 +74,7 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
         'Natural glow face pack',
         150,
         299,
-        'https://qpeimg.b-cdn.net/img_6389_result30260_1773339752542153.png?format=webp',
+        'https://qpeimg.b-cdn.net/img_7044_result30260_1774006353160026.png?format=webp',
         'Face Mask',
         'satpara-face-mask-natural-glow-face-pack/227268'),
     _DemoProduct(
@@ -81,7 +82,7 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
         'Traditional homemade-style pickle',
         250,
         300,
-        'https://qpeimg.b-cdn.net/img_7044_result30260_1774006353160026.png?format=webp',
+        'https://qpeimg.b-cdn.net/img_7039_result30260_1774006666151185.png?format=webp',
         'Pickle',
         'satpara-naturals-turmeric-pickle-180g/227269'),
     _DemoProduct(
@@ -89,7 +90,7 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
         'Deeply moisturizing handmade bar',
         80,
         120,
-        'https://qpeimg.b-cdn.net/img_7047_result30260_1774006351740595.png?format=webp',
+        'https://qpeimg.b-cdn.net/img_6349_result30260_1773600557198261.png?format=webp',
         'Soap',
         'shea-butter-soap/227115'),
   ];
@@ -125,8 +126,11 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
         foregroundColor: const Color(0xFF21392B),
         elevation: 0,
         titleSpacing: wide ? 48 : 16,
-        title: const Text('satpara naturals',
-            style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: .4)),
+        title: BrandTitle(
+          textColor: const Color(0xFF21392B),
+          logoSize: wide ? 42 : 36,
+          fontSize: wide ? 18 : 15,
+        ),
         actions: [
           if (wide) ...[
             TextButton(onPressed: _scrollToProducts, child: const Text('Shop')),
@@ -183,7 +187,7 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
                         children: [
                           Image.network(
                               'https://qpeimg.b-cdn.net/main-home-banner30260_1773340793853797.jpg',
-                              height: wide ? 390 : 310,
+                              height: wide ? 300 : 310,
                               width: double.infinity,
                               fit: BoxFit.cover,
                               errorBuilder: (_, __, ___) => Container(
@@ -260,38 +264,38 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
                                       ? Colors.white
                                       : const Color(0xFF3E6B4F),
                                   fontWeight: FontWeight.w600)))),
-                          Padding(
-                          padding: EdgeInsets.fromLTRB(
-                            wide ? 48 : 18, 22, wide ? 48 : 18, 0),
-                          child: _benefitStrip(wide),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(
-                              wide ? 48 : 18, 30, wide ? 48 : 18, 14),
-                            child: const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text('Shop by concern',
-                                style: TextStyle(
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(
+                        wide ? 48 : 18, 22, wide ? 48 : 18, 0),
+                    child: _benefitStrip(wide),
+                  ),
+                  Padding(
+                      padding: EdgeInsets.fromLTRB(
+                          wide ? 48 : 18, 30, wide ? 48 : 18, 14),
+                      child: const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text('Shop by concern',
+                              style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.w800,
                                   color: Color(0xFF21392B))))),
-                          SizedBox(
-                          height: 116,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.symmetric(horizontal: wide ? 48 : 18),
-                            children: const [
-                            _ConcernTile('Brightening', Icons.wb_sunny_outlined,
-                              Color(0xFFE9B949)),
-                            _ConcernTile('Hydrating', Icons.water_drop_outlined,
-                              Color(0xFF78A9C9)),
-                            _ConcernTile('Clarifying', Icons.spa_outlined,
-                              Color(0xFF709B72)),
-                            _ConcernTile('Daily care', Icons.favorite_border,
-                              Color(0xFFD98282)),
-                            ],
-                          ),
-                          ),
+                  SizedBox(
+                    height: 116,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.symmetric(horizontal: wide ? 48 : 18),
+                      children: const [
+                        _ConcernTile('Brightening', Icons.wb_sunny_outlined,
+                            Color(0xFFE9B949)),
+                        _ConcernTile('Hydrating', Icons.water_drop_outlined,
+                            Color(0xFF78A9C9)),
+                        _ConcernTile('Clarifying', Icons.spa_outlined,
+                            Color(0xFF709B72)),
+                        _ConcernTile('Daily care', Icons.favorite_border,
+                            Color(0xFFD98282)),
+                      ],
+                    ),
+                  ),
                   Padding(
                       padding: EdgeInsets.fromLTRB(
                           wide ? 48 : 18, 30, wide ? 48 : 18, 16),
@@ -458,11 +462,13 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
 
   Widget _emptyTab(IconData icon, String title, String subtitle,
       {String? action}) {
-    return Center(
+    return Align(
+      alignment: Alignment.centerLeft,
       child: Padding(
         padding: const EdgeInsets.all(30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(icon, size: 54, color: const Color(0xFF3E6B4F)),
             const SizedBox(height: 16),
@@ -473,7 +479,7 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
                     color: Color(0xFF21392B))),
             const SizedBox(height: 8),
             Text(subtitle,
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.left,
                 style: const TextStyle(color: Colors.black54, height: 1.5)),
             if (action != null) ...[
               const SizedBox(height: 20),
@@ -504,7 +510,8 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(benefit.$1, color: const Color(0xFF3E6B4F), size: 24),
+                      Icon(benefit.$1,
+                          color: const Color(0xFF3E6B4F), size: 24),
                       if (wide) ...[
                         const SizedBox(width: 8),
                         Flexible(
@@ -849,7 +856,8 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
             Navigator.pop(context);
           },
           decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.search), hintText: 'Soap, mask, pickle...'),
+              prefixIcon: Icon(Icons.search),
+              hintText: 'Soap, mask, pickle...'),
         ),
         actions: [
           TextButton(
@@ -868,6 +876,7 @@ class _DemoStorefrontScreenState extends State<DemoStorefrontScreen> {
       ),
     );
   }
+
   void _showStory() => _showMessage(
       'Satpara Naturals makes small-batch, handmade skincare in Maharashtra.');
   void _showContact() =>

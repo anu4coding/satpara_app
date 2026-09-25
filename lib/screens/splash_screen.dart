@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../providers/cart_provider.dart';
 import '../utils/theme.dart';
-import '../utils/constants.dart';
+import '../widgets/brand_logo.dart';
 import 'demo_storefront_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -37,16 +37,12 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.eco, size: 72, color: Colors.white),
-            SizedBox(height: 16),
-            Text(
-              AppConstants.appName,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold),
+            BrandLogo(
+              size: 136,
+              padding: EdgeInsets.all(10),
+              backgroundColor: Colors.white,
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 18),
             Text('Pure Care, Naturally',
                 style: TextStyle(color: Colors.white70)),
             SizedBox(height: 32),
